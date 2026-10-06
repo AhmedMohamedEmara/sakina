@@ -26,10 +26,55 @@
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
     @media print{.site-header,.mobile-nav,.footer,.lesson-tools,.lesson-nav,.journey-sidebar,.mobile-step-select,.btn,.link-btn{display:none!important}.container{width:100%}.lesson-layout{display:block}.lesson-card{box-shadow:none;break-inside:avoid}body{background:white;color:black}.source-card{break-inside:avoid}details{display:block}}
   
-    /* 04b. Realistic posture image galleries. Each source image is embedded so the single-file prototype stays offline. */
-    .pose-gallery{display:flex;align-items:flex-end;justify-content:center;gap:3px;width:100%;height:100%;overflow:hidden}.pose-thumb{display:flex;align-items:flex-end;justify-content:center;flex:1 1 0;min-width:0;height:100%;overflow:hidden}.pose-thumb img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}.step-figure{width:176px!important;height:111px!important;padding:4px 3px}.step-figure .pose-gallery{width:100%;height:100%}.preview-figure .pose-gallery{width:100%;height:100%}.preview-figure .pose-thumb{height:100%}.pose-count-1 .pose-thumb{max-width:100%}
-    @media(max-width:850px){.step-figure{width:156px!important;height:96px!important}}
-    @media(max-width:600px){.step-figure{width:132px!important;height:88px!important;padding:3px 2px}.pose-gallery{gap:2px}}
+    /* 04b. Avatar-first layout. The original embedded PNGs are unchanged.
+       These are still images, not a simulated or medically/ritually validated animation.
+       Each angle stays beside the others; narrow screens scroll the gallery instead of shrinking it. */
+    :root{--avatar-stage-height:clamp(440px,60vh,610px);--avatar-mobile-height:430px}
+    .learning-page #main.container{width:min(1440px,calc(100% - 64px))}
+    .lesson-layout{grid-template-columns:224px minmax(0,1fr);gap:24px}
+    .lesson-card-top{padding-block:24px 19px}
+    .preparation-figure{width:88px;height:111px;flex-shrink:0;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);border-radius:48px 48px 13px 13px}
+    .avatar-stage{margin:0;padding:21px 26px 20px;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 50% 30%,#ffffffb0 0,transparent 65%),linear-gradient(145deg,#e8efe3,#f1f2e7);isolation:isolate}
+    .avatar-stage-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+    .avatar-stage-top h3{font-size:12px;letter-spacing:0;color:var(--green);font-weight:700}
+    .avatar-stage-top p{font-size:11px;color:var(--muted);text-align:end}
+    .step-figure{width:100%;height:var(--avatar-stage-height);padding:0;border:0;border-radius:0;background:transparent;display:block}
+    .pose-gallery{display:flex;align-items:stretch;justify-content:flex-start;gap:16px;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;scroll-snap-type:x proximity;scroll-padding-inline:1px;scrollbar-width:thin;scrollbar-color:#a3b89b transparent}
+    .pose-thumb{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1 0 0;min-width:220px;height:100%;padding:18px 12px 10px;position:relative;border:1px solid #cbd8c980;border-radius:20px;background:#fffefa65;scroll-snap-align:start;overflow:hidden}
+    .pose-thumb img{display:block;width:100%;height:100%;min-height:0;flex:1 1 0;object-fit:contain;object-position:center;filter:drop-shadow(0 10px 10px #173e3210)}
+    .pose-select{font:inherit;color:var(--ink);text-align:center;transition:background .18s,border-color .18s}
+    .pose-select:hover{background:#fffefac9;border-color:#8ba682}
+    .pose-select:focus-visible{outline:3px solid var(--gold);outline-offset:-5px}
+    .pose-caption{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;flex-shrink:0;min-height:33px;margin-top:12px;font-size:11px;font-weight:650;color:var(--green);line-height:1.5}
+    .pose-caption .icon{width:13px;height:13px;color:var(--muted)}
+    .pose-count-1{justify-content:center}
+    .pose-count-1 .pose-thumb{flex:0 1 470px;min-width:0}
+    .pose-count-2 .pose-thumb{min-width:250px}
+    .avatar-stage[data-pose=prostrate] .step-figure{height:clamp(290px,43vh,420px)}
+    .avatar-swipe{display:none;font-size:11px;color:var(--muted);margin-top:9px}
+    .hero{grid-template-columns:.85fr 1.15fr;gap:50px}
+    .hero-visual{min-height:650px;padding-top:95px}
+    .preview-body{flex-direction:column;align-items:stretch;gap:16px;text-align:center}
+    .preview-figure{width:100%;height:350px;background:transparent;border:0;border-radius:0}
+    .preview-figure .pose-gallery{padding:0;overflow:hidden}
+    .preview-figure .pose-thumb{height:100%;min-width:0;max-width:100%;padding:0;border:0;border-radius:0;background:transparent}
+    .preview-body h3{font-size:25px}
+    .preview-body .arabic{font-size:25px}
+    .focus-mode .lesson-layout,.focus-mode .page-heading{max-width:1220px}
+    .focus-mode .step-figure{height:clamp(480px,68vh,720px)}
+    .focus-mode .avatar-stage[data-pose=prostrate] .step-figure{height:clamp(310px,48vh,480px)}
+    dialog.avatar-dialog{width:min(1260px,calc(100vw - 32px));max-height:calc(100dvh - 30px)}
+    .avatar-dialog .dialog-content{padding:18px 24px 22px}
+    .pose-viewer{margin:0;padding:18px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#e8efe3,#f5f5eb)}
+    .pose-viewer img{display:block;width:100%;height:clamp(300px,67vh,730px);object-fit:contain;filter:drop-shadow(0 12px 14px #173e3214)}
+    .pose-viewer figcaption{text-align:center;font-size:13px;color:var(--green);font-weight:650;margin-top:12px}
+    .pose-viewer-angles{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+    .pose-viewer-angles .btn{min-height:40px;font-size:12px;padding:8px 15px}
+    .pose-viewer-note{margin:13px 0 0;text-align:center;font-size:11px;color:var(--muted)}
+    @media(max-width:1100px){.learning-page #main.container{width:calc(100% - 48px)}.lesson-layout{grid-template-columns:200px minmax(0,1fr);gap:20px}.avatar-stage{padding-inline:20px}.pose-gallery{gap:12px}.pose-thumb{min-width:195px;padding-inline:8px}.pose-count-2 .pose-thumb{min-width:220px}.hero{gap:30px}}
+    @media(max-width:850px){.lesson-layout{grid-template-columns:1fr}.hero{grid-template-columns:1fr 1fr;gap:24px}.hero-visual{min-height:605px;padding-top:86px}.preview-figure{height:310px}.preview-body h3{font-size:22px}.preview-body .arabic{font-size:22px}.avatar-stage-top{align-items:flex-start}.step-figure{height:490px}}
+    @media(max-width:600px){.learning-page #main.container{width:calc(100% - 32px)}.hero{grid-template-columns:1fr}.hero-visual{min-height:565px;padding:72px 20px 22px}.preview-figure{height:295px}.preview-body .arabic{font-size:24px}.lesson-card-top{padding:20px 19px}.preparation-figure{width:67px;height:88px;border-radius:35px 35px 10px 10px}.preparation-figure .pose-svg{width:60px;height:81px}.avatar-stage{padding:18px 14px 15px}.avatar-stage-top{flex-direction:column;gap:5px;margin-bottom:12px}.avatar-stage-top p{text-align:start;font-size:10px}.step-figure,.focus-mode .step-figure{height:var(--avatar-mobile-height)}.avatar-stage[data-pose=prostrate] .step-figure,.focus-mode .avatar-stage[data-pose=prostrate] .step-figure{height:310px}.pose-gallery{gap:11px}.pose-thumb,.pose-count-2 .pose-thumb{flex:0 0 min(78vw,300px);min-width:0;padding:15px 12px 8px;border-radius:15px}.pose-count-1 .pose-thumb{flex:1 1 100%}.pose-caption{font-size:11px;margin-top:8px}.avatar-swipe{display:block}.avatar-dialog .dialog-content{padding:12px}.pose-viewer{padding:12px}.pose-viewer img{height:clamp(270px,60vh,580px)}.pose-viewer-angles .btn{padding:8px 12px;font-size:11px}}
+    @media print{.avatar-stage-top p,.pose-caption .icon,.avatar-swipe{display:none}.step-figure{height:360px}.pose-gallery{overflow:visible;gap:10px}.pose-thumb,.pose-count-2 .pose-thumb{min-width:0;flex:1 1 0}.pose-count-1 .pose-thumb{flex:0 1 300px}}
 </style>
 </head>
 <body>
@@ -90,20 +135,49 @@
     const images=POSE_IMAGES[type];
     if(!images) return pose(type);
     const visible=mode==='single'?images.slice(0,1):images;
-    return `<span class="pose-gallery pose-count-${visible.length}" aria-hidden="true">${visible.map((src,index)=>`<span class="pose-thumb"><img src="${src}" alt="" decoding="async" ${index>0?'loading="lazy"':''}></span>`).join('')}</span>`;
+    return `<span class="pose-gallery pose-count-${visible.length}">${visible.map((src,index)=>{
+      const label=escapeHtml(poseViewLabel(type,index));
+      const image=`<img src="${src}" alt="${mode==='single'?'':label}" decoding="async">`;
+      if(mode==='single')return `<span class="pose-thumb" aria-hidden="true">${image}</span>`;
+      return `<button type="button" class="pose-thumb pose-select" data-action="avatar-view" data-pose="${type}" data-index="${index}" aria-label="${escapeHtml(t('avatarZoom'))}: ${label}">${image}<span class="pose-caption" aria-hidden="true">${label}${icon('focus')}</span></button>`;
+    }).join('')}</span>`;
   }
-  function lessonPose(item){
+  function lessonPoseType(item){
     if(item.key==='tashahhud'){
-      const type=item.first||currentPrayer().count===2?'tashahhud-iftirash':'tashahhud-tawarruk';
-      return imagePose(type);
+      return item.first||currentPrayer().count===2?'tashahhud-iftirash':'tashahhud-tawarruk';
     }
     if(item.key==='salawat'||item.key==='dua'){
-      return imagePose(currentPrayer().count===2?'tashahhud-iftirash':'tashahhud-tawarruk');
+      return currentPrayer().count===2?'tashahhud-iftirash':'tashahhud-tawarruk';
     }
-    return imagePose(item.key==='salam'?'salam':CONTENT[item.key].pose);
+    return item.key==='salam'?'salam':CONTENT[item.key].pose;
+  }
+  function lessonPose(item){return imagePose(lessonPoseType(item));}
+  function poseViewLabel(type,index){
+    const views=type==='rise'?['raiseView','frontView','sideView']:type==='salam'?['salamRightView','salamLeftView']:['frontView','sideView','backView'];
+    return t(views[index]||'avatarView');
+  }
+  function avatarStage(item){
+    const type=lessonPoseType(item),images=POSE_IMAGES[type];
+    if(!images)return '';
+    return `<figure class="avatar-stage" data-pose="${type}" aria-labelledby="avatarHeading"><figcaption class="avatar-stage-top"><h3 id="avatarHeading">${t('avatarHeading')}</h3><p>${t('avatarHint')}</p></figcaption><div class="step-figure">${lessonPose(item)}</div>${images.length>1?`<p class="avatar-swipe">${t('avatarSwipe')}</p>`:''}</figure>`;
+  }
+  function openPoseViewer(type,index){
+    const images=Object.prototype.hasOwnProperty.call(POSE_IMAGES,type)?POSE_IMAGES[type]:null;
+    if(!images||!Number.isInteger(index)||index<0||index>=images.length)return;
+    const label=escapeHtml(poseViewLabel(type,index));
+    openDialog(t('avatarView'),`<figure class="pose-viewer"><img src="${images[index]}" alt="${label}" decoding="async"><figcaption>${label}</figcaption></figure>${images.length>1?`<div class="pose-viewer-angles" role="group" aria-label="${t('avatarAngles')}">${images.map((_,i)=>`<button type="button" class="btn ${i===index?'primary':''}" data-action="avatar-view" data-pose="${type}" data-index="${i}" aria-pressed="${i===index}">${escapeHtml(poseViewLabel(type,i))}</button>`).join('')}</div>`:''}<p class="pose-viewer-note">${t('avatarStillNote')}</p>`,'avatar-dialog');
   }
   /* 08. Bilingual interface copy. Religious wording is kept in CONTENT below. */
   const TEXT={
+    avatarHeading:{en:'See the posture clearly',ar:'شاهد وضعية الجسم بوضوح'},
+    avatarHint:{en:'Select an image for a much larger view',ar:'اضغط على أي صورة لعرضها بحجم أكبر'},
+    avatarSwipe:{en:'Swipe sideways to see the other views',ar:'اسحب أفقيًا لرؤية بقية الصور بجانب بعضها'},
+    avatarZoom:{en:'Enlarge this view',ar:'تكبير هذه الصورة'},
+    avatarView:{en:'A closer look at the posture',ar:'عرض مكبّر للوضعية'},
+    avatarAngles:{en:'Choose a view',ar:'اختر الصورة'},
+    avatarStillNote:{en:'Original still illustration. These views are not animation frames.',ar:'هذه الرسوم الأصلية ثابتة؛ الصور المختلفة ليست إطارات لحركة متتابعة.'},
+    frontView:{en:'Front view',ar:'من الأمام'},sideView:{en:'Side view',ar:'من الجانب'},backView:{en:'Back view',ar:'من الخلف'},
+    raiseView:{en:'With hands raised',ar:'مع رفع اليدين'},salamRightView:{en:'Salam to the right',ar:'التسليم إلى اليمين'},salamLeftView:{en:'Salam to the left',ar:'التسليم إلى اليسار'},
     brand:{en:'Sakina',ar:'سكينة'},tagline:{en:'A QUIET PATH TO PRAYER',ar:'رحلة مطمئنة لتعلّم الصلاة'},
     home:{en:'Home',ar:'الرئيسية'},learn:{en:'Learn prayer',ar:'تعلّم الصلاة'},review:{en:'Practice',ar:'المراجعة'},questions:{en:'Questions',ar:'الأسئلة'},sources:{en:'Sources',ar:'المصادر'},
     heroEyebrow:{en:'A GENTLE BEGINNING',ar:'بداية بسيطة، بخطوات مطمئنة'},
@@ -325,7 +399,7 @@
     let action=tr(data.action),tip=tr(data.tip);
     if(item.key==='recite'&&item.rakah>2) action=state.lang==='ar'?'قم للركعة التالية مع التكبير، واقرأ سورة الفاتحة بتمهّل. في هذا المثال تقتصر القراءة في الركعات اللاحقة على الفاتحة.':'Stand for the next rak‘ah with takbir, and recite al-Fatihah carefully. In this example the later rak‘ahs show al-Fatihah alone.';
     if(item.key==='tashahhud') tip=item.first?(state.lang==='ar'?'هذا هو التشهّد الأول. بعده تقوم لتستكمل الركعات الباقية في المثال المعروض.':'This is the first tashahhud. After it, stand to continue the remaining rak‘ahs in this example.'):(state.lang==='ar'?'هذا هو التشهّد الأخير. ابقَ جالسًا واستكمل الصلاة على النبي ﷺ والدعاء ثم التسليم.':'This is the final tashahhud. Remain seated for salawat, the supplication shown, and salam.');
-    return `<article class="lesson-card fade-in" aria-labelledby="lessonTitle"><header class="lesson-card-top"><div><div class="step-meta"><span class="pill green">${t('step')} ${num(index+1)} ${t('of')} ${num(total)}</span><span class="pill">${group}</span></div><h2 id="lessonTitle">${escapeHtml(stepTitle(item))}</h2><p class="step-term" lang="en" dir="ltr">${escapeHtml(data.term)}</p></div><div class="step-figure" role="img" aria-label="${escapeHtml(tr(data.title))}">${lessonPose(item)}</div></header><div class="lesson-content">${entry?`<div class="transition-line">${icon('arrow','directional')}<span>${t('whileMoving')}</span><span class="arabic" lang="ar">اللَّهُ أَكْبَرُ</span><span lang="en" dir="ltr">Allahu Akbar</span></div>`:''}<div class="label">${t('whatToDo')}</div><p class="action-description">${escapeHtml(action)}</p>${data.checks?`<div class="checklist">${data.checks.map((label,i)=>`<label><input type="checkbox" data-prep-check="${i}" ${state.prepChecks[i]?'checked':''}><span>${escapeHtml(tr(label))}</span></label>`).join('')}</div><p class="small muted">${t('checkPractice')}</p>`:`<div class="label">${t('whatToSay')}</div><div class="saying-box"><p class="arabic" lang="ar">${lines(data.arabic)}</p>${state.showPronunciation?`<p class="transliteration" lang="en">${lines(data.translit)}</p>`:''}<div class="meaning-box"><div class="label">${t('simpleMeaning')}</div><p>${escapeHtml(tr(data.meaning))}</p></div></div>`}${item.key==='recite'?`${recitationDetails('fullFatiha',FATIHA,'q1')}${item.rakah<=2?recitationDetails('optionalSurah',IKHLAS,'q112',t('optionalNote')):''}<p class="small muted">${t('pronunciationNote')}</p>`:''}<div class="quiet-tip">${icon('leaf')}<p>${escapeHtml(tip)}</p></div></div><footer class="lesson-card-bottom"><button class="card-source-button" data-action="step-sources">${icon('book')}${t('sourceForStep')}</button><button class="link-btn" data-action="step-questions">${icon('chat')}${t('stepQuestions')}</button></footer></article>`;
+    return `<article class="lesson-card fade-in" aria-labelledby="lessonTitle"><header class="lesson-card-top"><div><div class="step-meta"><span class="pill green">${t('step')} ${num(index+1)} ${t('of')} ${num(total)}</span><span class="pill">${group}</span></div><h2 id="lessonTitle">${escapeHtml(stepTitle(item))}</h2><p class="step-term" lang="en" dir="ltr">${escapeHtml(data.term)}</p></div>${item.key==='prep'?`<div class="preparation-figure" role="img" aria-label="${escapeHtml(tr(data.title))}">${lessonPose(item)}</div>`:''}</header>${avatarStage(item)}<div class="lesson-content">${entry?`<div class="transition-line">${icon('arrow','directional')}<span>${t('whileMoving')}</span><span class="arabic" lang="ar">اللَّهُ أَكْبَرُ</span><span lang="en" dir="ltr">Allahu Akbar</span></div>`:''}<div class="label">${t('whatToDo')}</div><p class="action-description">${escapeHtml(action)}</p>${data.checks?`<div class="checklist">${data.checks.map((label,i)=>`<label><input type="checkbox" data-prep-check="${i}" ${state.prepChecks[i]?'checked':''}><span>${escapeHtml(tr(label))}</span></label>`).join('')}</div><p class="small muted">${t('checkPractice')}</p>`:`<div class="label">${t('whatToSay')}</div><div class="saying-box"><p class="arabic" lang="ar">${lines(data.arabic)}</p>${state.showPronunciation?`<p class="transliteration" lang="en">${lines(data.translit)}</p>`:''}<div class="meaning-box"><div class="label">${t('simpleMeaning')}</div><p>${escapeHtml(tr(data.meaning))}</p></div></div>`}${item.key==='recite'?`${recitationDetails('fullFatiha',FATIHA,'q1')}${item.rakah<=2?recitationDetails('optionalSurah',IKHLAS,'q112',t('optionalNote')):''}<p class="small muted">${t('pronunciationNote')}</p>`:''}<div class="quiet-tip">${icon('leaf')}<p>${escapeHtml(tip)}</p></div></div><footer class="lesson-card-bottom"><button class="card-source-button" data-action="step-sources">${icon('book')}${t('sourceForStep')}</button><button class="link-btn" data-action="step-questions">${icon('chat')}${t('stepQuestions')}</button></footer></article>`;
   }
   function renderCompletion(){
     const p=getProgress(),total=buildSequence().length,all=p.done.length===total;
@@ -369,6 +443,7 @@
     document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';
     document.documentElement.style.setProperty('--arabic-size',`${state.arabicSize}px`);
     document.body.classList.toggle('focus-mode',state.focus&&state.route==='learn'&&!state.completedView);
+    document.body.classList.toggle('learning-page',state.route==='learn');
     $('#main').innerHTML=(ROUTES[state.route]||renderHome)();
     document.querySelectorAll('[data-recitation]').forEach(el=>{if(opened.includes(el.dataset.recitation))el.open=true;});
     if(state.route==='learn'){
@@ -391,12 +466,13 @@
   }
   let toastTimer;
   function toast(message){clearTimeout(toastTimer);const element=$('#toast');element.textContent=message;element.classList.add('show');toastTimer=setTimeout(()=>element.classList.remove('show'),3300);}
-  function openDialog(title,content){
+  function openDialog(title,content,variant=''){
     const dialog=$('#appDialog');
+    dialog.className=variant;
     dialog.innerHTML=`<div class="dialog-header"><h2 id="dialogTitle">${escapeHtml(title)}</h2><button class="icon-btn" data-action="close-dialog" aria-label="${t('close')}">${icon('close')}</button></div><div class="dialog-content">${content}</div>`;
     if(!dialog.open)dialog.showModal();
   }
-  const closeDialog=()=>{const dialog=$('#appDialog');if(dialog.open)dialog.close();};
+  const closeDialog=()=>{const dialog=$('#appDialog');if(dialog.open)dialog.close();dialog.className='';};
   function moveOrder(from,to){
     if(!Number.isInteger(from)||!Number.isInteger(to)||from<0||to<0||from>=state.order.length||to>=state.order.length)return;
     const item=state.order.splice(from,1)[0];state.order.splice(to,0,item);state.orderChecked=false;state.orderReveal=false;renderMain();
@@ -425,6 +501,7 @@
       case 'jump':jump(index);break;
       case 'previous':jump(getProgress().current-1);break;
       case 'next':advanceLesson();break;
+      case 'avatar-view':openPoseViewer(button.dataset.pose,index);break;
       case 'remaining':jump(buildSequence().findIndex((_,i)=>!getProgress().done.includes(i)));break;
       case 'restart-guide':jump(0);break;
       case 'pronunciation':state.showPronunciation=!state.showPronunciation;save();renderMain({preserveDetails:true});break;
